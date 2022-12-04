@@ -1,0 +1,81 @@
+@font-face {
+  font-family: xharp;
+  src: url(../src/font/Gotu-Regular.ttf);
+}
+
+body {
+  overflow: hidden;
+  background-size: cover;
+  background-image: url(../img/bg2.jpg);
+}
+header h1 {
+  display: flex;
+  justify-content: center;
+}
+.sub-heading {
+  font-family: "Times New Roman", Times, serif;
+}
+header .main-text h1 {
+  font-family: xharp;
+  font-size: 10rem;
+  /* letter-spacing: 2rem; */
+}
+.second-container {
+  background-color: rgba(92, 92, 92, 0.199);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  border: 1px solid black;
+  transition: 3s;
+  border-radius: 20px;
+}
+
+.clock {
+  font-family: xharp;
+  width: 60%;
+}
+.header::after {
+  content: "";
+  width: 20px;
+  height: 30px;
+  background-color: aliceblue;
+  position: absolute;
+}
+#main-clock-hour,
+#main-clock-minute,
+#main-clock-seconds {
+  box-shadow: inset;
+}
+span {
+  display: inline;
+}
+#second,
+#minutes,
+#hour {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: 1s;
+  transform: translateY(0rem);
+  font-size: 15rem;
+}
+.current,
+.next,
+.previous {
+  font-size: 12rem;
+  color: rgb(0, 0, 0);
+  transition: 0.85s;
+  /* backdrop-filter: blur(20px); */
+}
+.separator {
+  font-size: 8rem;
+  color: rgb(0, 0, 0);
+  margin: auto;
+}
+.date-container {
+  background-color: rgba(92, 92, 92, 0.199);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+}
+/* .date {
+  backdrop-filter: blur(10px);
+} */
