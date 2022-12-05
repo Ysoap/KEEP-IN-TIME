@@ -67,50 +67,58 @@ akk();
 setInterval(() => akk(), 1000);
 
 ////sinc the minute with the seconds
-
+// console.log(akk().current);
 // if (secCurrent.textContent.includes("00")) {
 //   console.log("dk");
 // }
 
 ////sinc the minute with the seconds
-// function setHour() {
-//   const hour = document.getElementById("hour");
-//   const hourCurrent = hour.querySelector(".current");
-//   const hourNext = hour.querySelector(".next");
+function setHour() {
+  const hour = document.getElementById("hour");
+  const hourCurrent = hour.querySelector(".current");
+  const hourNext = hour.querySelector(".next");
+  const minutesReference = new Date().getMinutes().toString();
 
-//   //check if the MinCurrent exist cuz in the main function class current will switch to previous
-//   if (hourCurrent != null) {
-//     hourCurrent.textContent = new Date().getHours();
-//   }
+  //check if the MinCurrent exist cuz in the main function class current will switch to previous
+  if (hourCurrent != null) {
+    hourCurrent.textContent = new Date().getHours();
+  }
 
-//   function setHour() {
-//     if (MinCurrent.textContent.includes("00")) {
-//       hourCurrent.style.transform = "translateY(-22.5rem)";
-//       hourNext.style.transform = "translateY(-22.5rem)";
+  if (minutesReference == "8") {
+    hourCurrent.style.transform = "translateY(-19rem)";
+    hourNext.style.transform = "translateY(-19rem)";
 
-//       hourNext.textContent = ("0" + new Date().getHours().toString()).slice(-2);
-//       hourCurrent.setAttribute("class", "previous");
-//       setTimeout(() => {
-//         const hourNext = hour.querySelector(".next ");
-//         hourNext.style.transform = "translateY(0rem)";
-//         hourNext.style.transition = "0s";
-//         const hourprevious = hour.querySelector(".previous");
-//         hourprevious.remove();
+    hourNext.textContent = ("0" + new Date().getHours().toString()).slice(-2);
+    hourCurrent.setAttribute("class", "previous");
+    setTimeout(() => {
+      const hourNext = hour.querySelector(".next ");
+      hourNext.style.transform = "translateY(0rem)";
+      hourNext.style.transition = "0s";
+      const hourprevious = hour.querySelector(".previous");
+      hourprevious.remove();
 
-//         const base = document.createElement("span");
-//         base.setAttribute("class", "next");
-//         hour.appendChild(base);
-//       }, 400);
-//       setTimeout(() => {
-//         hourNext.setAttribute("class", "current");
-//         hourCurrent.style.color = "white";
-//       }, 700);
-//     }
-//   }
+      const base = document.createElement("span");
+      base.setAttribute("class", "next");
+      hour.appendChild(base);
+    }, 400);
+    setTimeout(() => {
+      hourNext.setAttribute("class", "current");
+      hourCurrent.style.color = "white";
+    }, 700);
+    setTimeout(() => {
+      hourCurrent.style.transform = "translateY(0rem)";
+      hourNext.style.transform = "translateY(0rem)";
+    }, 700);
+    clearInterval(HourCheckInterval);
 
-//   if (MinCurrent != null) {
-//   }
-// }
+    // setTimeout(clearInterval(c), 1000);
+  }
+}
+// c();
+setHour();
+let HourCheckInterval = setInterval(() => {
+  setHour();
+}, 1000);
 // setHour();
 
 //
