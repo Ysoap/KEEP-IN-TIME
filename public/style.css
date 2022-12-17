@@ -1,25 +1,76 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
 @font-face {
   font-family: Gotu;
   src: url(../src/font/Gotu-Regular.ttf);
 }
 
 body {
-  overflow: hidden;
   background-size: cover;
   background-image: url(../img/bg2.jpg);
-}
-header h1 {
-  display: flex;
-  justify-content: center;
 }
 .sub-heading {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
   letter-spacing: 2px;
 }
-header .main-text h1 {
-  font-family: gotu;
+.main-text h1 {
+  font-family: Gotu;
   font-size: 10rem;
+}
+/* 4. Style the button */
+.nav-button {
+  padding: 0.5em;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+/* 2. Style hamburger */
+.hamburger {
+  display: block;
+  background: #000;
+  width: 2.2em;
+  height: 0.3em;
+  position: relative;
+  border-radius: 2em;
+}
+
+/* 3. Creating pseudo elements */
+.hamburger:before,
+.hamburger:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #000;
+  width: 2.2em;
+  height: 0.3em;
+  border-radius: 2em;
+  display: block;
+}
+.hamburger:before {
+  top: 8px;
+}
+.hamburger:after {
+  bottom: 8px;
+}
+.hamburger:hover {
+  transform: translateX(-4px);
+  transition: 0.4s;
+}
+.close-toggle {
+  display: block;
+  background: #000;
+  width: 2.2em;
+  height: 0.3em;
+  position: relative;
+  border-radius: 2em;
 }
 .clock-number-container {
   background-color: rgba(92, 92, 92, 0.199);
@@ -61,7 +112,6 @@ header .main-text h1 {
 .next,
 .previous {
   font-size: 12rem;
-  /* color: rgb(0, 0, 0); */
   transition: 0.85s;
 }
 .separator {

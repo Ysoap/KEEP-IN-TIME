@@ -67,12 +67,6 @@ akk();
 setInterval(() => akk(), 1000);
 
 ////sinc the minute with the seconds
-// console.log(akk().current);
-// if (secCurrent.textContent.includes("00")) {
-//   console.log("dk");
-// }
-
-////sinc the minute with the seconds
 function setHour() {
   const hour = document.getElementById("hour");
   const hourCurrent = hour.querySelector(".current");
@@ -84,7 +78,7 @@ function setHour() {
     hourCurrent.textContent = new Date().getHours();
   }
 
-  if (minutesReference == "8") {
+  if (minutesReference == "0") {
     hourCurrent.style.transform = "translateY(-19rem)";
     hourNext.style.transform = "translateY(-19rem)";
 
@@ -110,8 +104,6 @@ function setHour() {
       hourNext.style.transform = "translateY(0rem)";
     }, 700);
     clearInterval(HourCheckInterval);
-
-    // setTimeout(clearInterval(c), 1000);
   }
 }
 // c();
@@ -119,8 +111,34 @@ setHour();
 let HourCheckInterval = setInterval(() => {
   setHour();
 }, 1000);
-// setHour();
-
-//
 const date = document.querySelector(".date");
 date.textContent = new Date().toString().slice(0, 15);
+
+//
+
+//
+
+//
+
+// toggle
+const side = document.querySelector(".side");
+const nav_button = document.querySelector(".nav-button");
+window.addEventListener("click", (e) => {
+  switch (e.target) {
+    case nav_button:
+      side.style.transform = "translateX(0px)";
+      setTimeout;
+      nav_button.classList.replace("nav-button", "close-toggle");
+      console.log("d");
+      const close = document.querySelector(".close-toggle");
+      break;
+    // case close:
+    //   console.log("p");
+    //   break;
+  }
+  // if ((e.target = nav_button)) {
+  //   side.style.transform = "translateX(0px)";
+  //   nav_button.classList.replace("nav-button", "close-toggle");
+  //   console.log(side);
+  // }
+});
