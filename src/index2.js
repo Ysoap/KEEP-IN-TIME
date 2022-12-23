@@ -123,22 +123,23 @@ date.textContent = new Date().toString().slice(0, 15);
 // toggle
 const side = document.querySelector(".side");
 const nav_button = document.querySelector(".nav-button");
-window.addEventListener("click", (e) => {
-  switch (e.target) {
-    case nav_button:
-      side.style.transform = "translateX(0px)";
-      setTimeout;
-      nav_button.classList.replace("nav-button", "close-toggle");
-      console.log("d");
-      const close = document.querySelector(".close-toggle");
-      break;
-    // case close:
-    //   console.log("p");
-    //   break;
-  }
-  // if ((e.target = nav_button)) {
-  //   side.style.transform = "translateX(0px)";
-  //   nav_button.classList.replace("nav-button", "close-toggle");
-  //   console.log(side);
-  // }
-});
+
+function click() {
+  window.addEventListener("click", (e) => {
+    if (
+      e.target.className === "nav-button" ||
+      e.target.className === "hamburger"
+    ) {
+      side.style.transform = "translateX(0em)";
+      nav_button.classList.replace("nav-button", "nav-close");
+      window.addEventListener("click", (e) => {
+        if (e.target.className !== "nav-button") {
+          side.style.transform = "translateX(5em)";
+          nav_button.classList.replace("nav-close", "nav-button");
+          click();
+        }
+      });
+    }
+  });
+}
+click();
