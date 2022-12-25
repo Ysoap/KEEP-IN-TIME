@@ -123,23 +123,21 @@ date.textContent = new Date().toString().slice(0, 15);
 // toggle
 const side = document.querySelector(".side");
 const nav_button = document.querySelector(".nav-button");
+const hamburger = document.querySelector(".hamburger");
+const main = document.querySelector("main");
 
-function click() {
-  window.addEventListener("click", (e) => {
-    if (
-      e.target.className === "nav-button" ||
-      e.target.className === "hamburger"
-    ) {
-      side.style.transform = "translateX(0em)";
-      nav_button.classList.replace("nav-button", "nav-close");
-      window.addEventListener("click", (e) => {
-        if (e.target.className !== "nav-button") {
-          side.style.transform = "translateX(5em)";
-          nav_button.classList.replace("nav-close", "nav-button");
-          click();
-        }
-      });
-    }
-  });
-}
-click();
+window.addEventListener("click", (e) => {
+  if (e.target == nav_button || e.target.className == "hamburger") {
+    side.style.transform = "translateX(0em)";
+    nav_button.classList.replace("nav-button", "nav-close");
+    hamburger.classList.replace("hamburger", "close-hamburger");
+    main.style.transform = "translateX(-3em)";
+  } else if (document.querySelector(".close-hamburger") != null) {
+    side.style.transform = "translateX(5em)";
+    nav_button.classList.replace("nav-close", "nav-button");
+    document
+      .querySelector(".close-hamburger")
+      .classList.replace("close-hamburger", "hamburger");
+    main.style.transform = "translateX(3em)";
+  }
+});
