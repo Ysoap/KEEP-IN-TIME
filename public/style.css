@@ -17,10 +17,6 @@ nav {
 main {
   transition: 1s;
 }
-i {
-  background-color: aliceblue;
-  color: aliceblue;
-}
 .sub-heading {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
@@ -102,6 +98,7 @@ i {
   border-radius: 2em;
   display: block;
   animation: change-color-navlogo-animation 0.7s ease;
+  animation: main-nav-animation 1s ease;
 }
 .nav-close .close-hamburger:before {
   transition: 0.5s;
@@ -112,6 +109,14 @@ i {
   transition: 0.5s;
   transform: rotate(135deg);
   top: 0px;
+}
+@keyframes main-nav-animation {
+  0% {
+    width: 0.2em;
+  }
+  100% {
+    width: 2.2em;
+  }
 }
 
 @keyframes change-color-navlogo-animation {
@@ -170,7 +175,7 @@ i {
   color: rgb(0, 0, 0);
   margin: auto;
 }
-.date-container {
+.info-box-container {
   background-color: rgba(92, 92, 92, 0.199);
   backdrop-filter: blur(10px);
   border-radius: 20px;

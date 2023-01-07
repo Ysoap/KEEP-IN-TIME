@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../public/main.css" />
     <title>Hello, world!</title>
   </head>
-  <body class="overflow-hidden">
+  <body class="overflow-hidden sm">
     <script src="../src/index2.js" defer></script>
     <header class="d-flex flex-column">
       <!-- 
@@ -23,27 +23,41 @@
       <!-- 
         -->
       <nav
-        class="side bg-dark h-100 position-absolute end-0 top-0 pt-5"
-        style="width: 5em; transform: translateX(5em)">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-stopwatch"
-          viewBox="0 0 16 16">
-          <path
-            d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z" />
-          <path
-            d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z" />
-        </svg>
+        class="side bg-dark h-100 position-absolute end-0 top-0"
+        style="width: 5em; transform: translateX(5em); padding-top: 8em">
+        <div class="row main-navmenu-container">
+          <div class="col d-flex justify-content-center">
+            <i
+              class="bi bi-clock fs-2 text-light clock-nav main-nav-content"></i>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <i
+              class="bi bi-stopwatch fs-2 text-light stopwatch main-nav-content"></i>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <i
+              class="bi bi-globe-americas fs-2 text-light world-clock main-nav-content"></i>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <i
+              class="bi bi-hourglass-split fs-2 text-light timer main-nav-content"></i>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <i
+              class="bi bi-calendar-date fs-2 text-light calendar main-nav-content"></i>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <i
+              class="bi bi-info-circle fs-2 text-light info main-nav-content"></i>
+          </div>
+        </div>
       </nav>
       <button class="nav-button"><span class="hamburger"></span></button>
     </header>
     <main>
       <div class="main-text md">
         <div class="haeading d-flex justify-content-center">
-          <h1 class="">Keep In Time</h1>
+          <h1 class="main-content-header">Keep In Time</h1>
         </div>
         <div class="sub-heading text-center p-2">
           <q class="fs-3 md"
@@ -73,15 +87,16 @@
             <span class="separator">:</span>
             <div class="clock-number-container col-4 text-center">
               <div id="second" class="text-center">
-                <span class="current"></span>
-                <span class="next"></span>
+                <span class="current sec-current">00</span>
+                <span class="next">00</span>
               </div>
             </div>
           </div>
           <div
-            class="date-container d-flex justify-content-center align-items-center mt-3"
+            class="info-box-container d-flex justify-content-center align-items-center mt-3"
             style="height: 4rem">
-            <span class="date fs-3"></span>
+            <!-- <span class="date fs-3"></span> -->
+            <div class="row control-container"></div>
           </div>
         </div>
       </div>
