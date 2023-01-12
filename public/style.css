@@ -1,6 +1,7 @@
 * {
   margin: 0px;
   padding: 0px;
+  color: rgb(3, 3, 3);
 }
 @font-face {
   font-family: Gotu;
@@ -129,7 +130,7 @@ main {
 }
 /* */
 .clock-number-container {
-  background-color: rgba(92, 92, 92, 0.199);
+  background-color: rgba(52, 52, 52, 0.354);
   backdrop-filter: blur(10px);
   overflow: hidden;
 
@@ -176,7 +177,12 @@ main {
   margin: auto;
 }
 .info-box-container {
-  background-color: rgba(92, 92, 92, 0.199);
+  background-color: rgba(52, 52, 52, 0.354);
   backdrop-filter: blur(10px);
   border-radius: 20px;
+}
+.capture-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 10em;
 }

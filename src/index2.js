@@ -1,5 +1,7 @@
 let stoppingFunction = false;
 let setSecondAlreadyOn = false;
+let onceforcapturecontainer = false;
+let stopwatchStartStop = false;
 function setSecondsAndMinutes() {
   const secondContainer = document.querySelector("#second");
   const current = secondContainer.querySelector(".current");
@@ -124,11 +126,6 @@ let HourCheckInterval = setInterval(() => {
 
 const info_box = document.querySelector(".info-box-container");
 function setDate() {
-  // const info_box = document.querySelector(".info-box-container");
-  // const divControlDate = document.createElement("div");
-  // divControlCont.classList.add("row");
-  // divControlCont.classList.add("control-container");
-  // info_box.appendChild(divControlCont);
   const spanDate = document.createElement("span");
   spanDate.classList.add("date");
   spanDate.classList.add("fs-3");
@@ -170,7 +167,6 @@ function clearTheMainNumberText() {
   const next = document.querySelectorAll(".next ");
   clearInterval(clockInterval);
   stoppingFunction = true;
-
   current.forEach((item) => {
     item.textContent = "00";
   });
@@ -186,9 +182,11 @@ side.addEventListener("click", (e) => {
     case document.querySelector(".clock-nav"):
       const start = document.querySelector(".btn-success");
       if (start != null) {
-        start.removeEventListener("click", StopwatchFunc);
+        // start.removeEventListener("click", StopwatchFunc);
         stoppingFunction = false;
         onceFuncForStopWatch = false;
+        //stopwatchStartStop is for prevent multiple running function when start is clickedx`
+        stopwatchStartStop = false;
         setSecondsAndMinutes();
         setHour();
         clockInterval = setInterval(() => setSecondsAndMinutes(), 1000);
@@ -201,11 +199,11 @@ side.addEventListener("click", (e) => {
           clearInterval(stopwatchinterval);
         }
       }
+      change_main_content_header("Keep In Time");
       break;
     case document.querySelector(".stopwatch"):
       if (onceFuncForStopWatch != true) {
         onceFuncForStopWatch = true;
-
         clearInterval(clockInterval);
         stopwatch();
       }
@@ -236,10 +234,10 @@ function clearInfoBox() {
   info_box.replaceChildren();
 }
 function stopwatch() {
+  const info_box = document.querySelector(".info-box-container");
   change_main_content_header("stopwatch");
   clearTheMainNumberText();
   const divControlCont = document.createElement("div");
-  const info_box = document.querySelector(".info-box-container");
   divControlCont.classList.add("row");
   divControlCont.classList.add("control-container");
   info_box.appendChild(divControlCont);
@@ -280,47 +278,85 @@ function stopwatch() {
   //capture
   const start = document.querySelector(".btn-success");
 
-  start.addEventListener("click", StopwatchFunc);
-}
-function StopwatchFunc() {
-  onceFunc = true;
-  let GetAllTextSecond = document.querySelectorAll(".current");
-  let textsecond = [...GetAllTextSecond];
-  let milisecond = 00;
-  let second = 00;
-  let minute = 00;
-  stopwatchinterval = setInterval(() => {
-    milisecond++;
-    textsecond[2].textContent = ("0" + milisecond.toString()).slice(-2);
-    if (milisecond == 100) {
-      second++;
-      milisecond = 0;
-      if (second == 60) {
-        minute++;
-        second = 0;
-      }
-    }
-    textsecond[1].textContent = ("0" + second.toString()).slice(-2);
-    textsecond[0].textContent = ("0" + minute.toString()).slice(-2);
-  }, 10);
-  const mainControlContainer = document.querySelector(".control-container");
-  const start = document.querySelector(".btn-success");
-  mainControlContainer.addEventListener("click", (e) => {
-    const reset = document.querySelector(".btn-danger");
-    const capture = document.querySelector(".btn-secondary");
-
-    if (e.target == reset) {
-      clearInterval(stopwatchinterval);
-      minute = 00;
-      textsecond.forEach((e) => (e.textContent = "00"));
-      start.addEventListener("click", StopwatchFunc);
-      onceFunc = false;
-    }
-    if (e.target == capture) {
-      console.log("y");
+  let milisecond = 0;
+  let second = 0;
+  let minute = 0;
+  start.addEventListener("click", () => {
+    if (stopwatchStartStop !== true) {
+      let GetAllTextSecond = document.querySelectorAll(".current");
+      let textsecond = [...GetAllTextSecond];
+      stopwatchStartStop = true;
+      onceFuncCapt = false;
+      stopwatchinterval = setInterval(() => {
+        milisecond++;
+        if (milisecond == 100) {
+          second++;
+          milisecond = 0;
+          if (second == 60) {
+            minute++;
+            second = 0;
+          }
+        }
+        textsecond[2].textContent = ("0" + milisecond.toString()).slice(-2);
+        textsecond[1].textContent = ("0" + second.toString()).slice(-2);
+        textsecond[0].textContent = ("0" + minute.toString()).slice(-2);
+      }, 10);
     }
   });
-  if (onceFunc == true) {
-    start.removeEventListener("click", StopwatchFunc);
-  }
+  const reset = document.querySelector(".btn-danger");
+  reset.addEventListener("click", () => {
+    let GetAllTextSecond = document.querySelectorAll(".current");
+    let textsecond = [...GetAllTextSecond];
+    if (typeof stopwatchinterval !== undefined) {
+      clearInterval(stopwatchinterval);
+    }
+    minute = 00;
+    second = 00;
+    milisecond = 00;
+    textsecond.forEach((e) => (e.textContent = "00"));
+    stopwatchStartStop = false;
+    onceforcapturecontainer = false;
+    onceFunc = false;
+    const capturecontainer = document.querySelector(".capture-container");
+    if (capturecontainer !== null) {
+      capturecontainer.replaceChildren();
+      capturecontainer.remove();
+    }
+  });
+
+  const capture = document.querySelector(".btn-secondary");
+  capture.addEventListener("click", () => {
+    if (minute != 0 || second != 0 || milisecond != 0) {
+      if (onceforcapturecontainer !== true) {
+        const capturecontainercreate = document.createElement("div");
+        capturecontainercreate.classList.add("col");
+        capturecontainercreate.classList.add("capture-container");
+        capturecontainercreate.classList.add("w-75");
+        capturecontainercreate.classList.add("h-75");
+        capturecontainercreate.classList.add("mb-3");
+        capturecontainercreate.classList.add("mt-3");
+        onceforcapturecontainer = true;
+        info_box.appendChild(capturecontainercreate);
+      }
+
+      let capturecontainer = document.querySelector(".capture-container");
+      const row = document.createElement("div");
+      row.classList.add("row");
+      row.classList.add("h-100");
+      const col = document.createElement("div");
+      col.classList.add("col");
+      col.classList.add("h-100");
+      col.classList.add("fs-3");
+      col.textContent =
+        ("0" + minute.toString()).slice(-2) +
+        ":" +
+        ("0" + second.toString()).slice(-2) +
+        ":" +
+        ("0" + milisecond.toString()).slice(-2);
+      milisecond;
+      row.appendChild(col);
+      console.log(milisecond);
+      capturecontainer.prepend(row);
+    }
+  });
 }
