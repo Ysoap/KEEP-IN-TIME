@@ -249,11 +249,10 @@ function stopwatch() {
     div.classList.add(Class);
     control_container.appendChild(div);
   }
+  createButtonContainer("stop");
   createButtonContainer("start");
   createButtonContainer("reset");
   createButtonContainer("capture");
-  // createButtonContainer("start");
-
   function createButton(btn_color, textNode, Class) {
     const button_start = document.createElement("button");
     const control_container = document.querySelector(
@@ -266,9 +265,10 @@ function stopwatch() {
     text_button_start = document.createTextNode(textNode);
     button_start.appendChild(text_button_start);
   }
+  createButton("warning", "STOP", "stop");
   createButton("success", "START", "start");
   createButton("danger", "RESET", "reset");
-  createButton("secondary", "capture", "capture");
+  createButton("secondary", "CAPTURE", "capture");
   const Date = document.querySelector(".date");
   Date.textContent = "";
 
@@ -281,12 +281,17 @@ function stopwatch() {
   let milisecond = 0;
   let second = 0;
   let minute = 0;
+  stopwatchintervalstop = false;
   start.addEventListener("click", () => {
     if (stopwatchStartStop !== true) {
+      start.parentNode.classList.add("visually-hidden");
       let GetAllTextSecond = document.querySelectorAll(".current");
       let textsecond = [...GetAllTextSecond];
       stopwatchStartStop = true;
       onceFuncCapt = false;
+      stop.classList.remove("visually-hidden");
+      reset.parentNode.classList.remove("visually-hidden");
+      capture.parentNode.classList.remove("visually-hidden");
       stopwatchinterval = setInterval(() => {
         milisecond++;
         if (milisecond == 100) {
@@ -303,7 +308,18 @@ function stopwatch() {
       }, 10);
     }
   });
+  const stop = document.querySelector(".stop");
+  stop.classList.add("visually-hidden");
+  stop.addEventListener("click", () => {
+    clearInterval(stopwatchinterval);
+    stopwatchStartStop = false;
+    stop.classList.add("visually-hidden");
+    control_container.style.gap = "4em";
+    capture.parentNode.classList.add("visually-hidden");
+    start.parentNode.classList.remove("visually-hidden");
+  });
   const reset = document.querySelector(".btn-danger");
+  reset.parentNode.classList.add("visually-hidden");
   reset.addEventListener("click", () => {
     let GetAllTextSecond = document.querySelectorAll(".current");
     let textsecond = [...GetAllTextSecond];
@@ -322,10 +338,16 @@ function stopwatch() {
       capturecontainer.replaceChildren();
       capturecontainer.remove();
     }
+    stop.classList.add("visually-hidden");
+    reset.parentNode.classList.add("visually-hidden");
+    capture.parentNode.classList.add("visually-hidden");
+    start.parentNode.classList.remove("visually-hidden");
   });
 
   const capture = document.querySelector(".btn-secondary");
+  capture.parentNode.classList.add("visually-hidden");
   capture.addEventListener("click", () => {
+    setInterval(stopwatchinterval, 10);
     if (minute != 0 || second != 0 || milisecond != 0) {
       if (onceforcapturecontainer !== true) {
         const capturecontainercreate = document.createElement("div");
@@ -338,15 +360,19 @@ function stopwatch() {
         onceforcapturecontainer = true;
         info_box.appendChild(capturecontainercreate);
       }
-
       let capturecontainer = document.querySelector(".capture-container");
       const row = document.createElement("div");
       row.classList.add("row");
       row.classList.add("h-100");
       const col = document.createElement("div");
+      const col2 = document.createElement("div");
       col.classList.add("col");
       col.classList.add("h-100");
       col.classList.add("fs-3");
+      col2.classList.add("col");
+      col2.classList.add("text-end");
+      col2.textContent = "test";
+      col2.classList.add("fs-3");
       col.textContent =
         ("0" + minute.toString()).slice(-2) +
         ":" +
@@ -355,8 +381,42 @@ function stopwatch() {
         ("0" + milisecond.toString()).slice(-2);
       milisecond;
       row.appendChild(col);
-      console.log(milisecond);
+      row.appendChild(col2);
+
+      // console.log(milisecond);
       capturecontainer.prepend(row);
+
+      // console.log(thenumberofrows);
+      const thenumberofrows = [...capturecontainer.querySelectorAll(".row")];
+
+      if (thenumberofrows.length > 1) {
+        let forDeletion = [":"];
+        let previousCapture = parseInt(
+          [...thenumberofrows[1].firstChild.textContent.toString()]
+            .filter((item) => !forDeletion.includes(item))
+            .join("")
+        );
+        let currentCapture = parseInt(
+          [...thenumberofrows[0].firstChild.textContent.toString()]
+            .filter((item) => !forDeletion.includes(item))
+            .join("")
+        );
+        let g = [
+          ...(("00000" + (currentCapture - previousCapture))
+            .slice(-6)
+            .toString() + "+"),
+        ];
+        function insertAt(array, index, ...elementsArray) {
+          array.splice(index, 0, ...elementsArray);
+        }
+        insertAt(g, 2, ":");
+        insertAt(g, 5, ":");
+        col2.textContent = g.join("");
+      } else col2.textContent = col.textContent + "+";
     }
+  });
+  control_container.addEventListener("click", (e) => {
+    if (e.target != stop.firstChild) control_container.style.gap = "0em";
+    else control_container.style.gap = "4em";
   });
 }
