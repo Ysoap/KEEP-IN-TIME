@@ -306,6 +306,12 @@ function stopwatch() {
         textsecond[1].textContent = ("0" + second.toString()).slice(-2);
         textsecond[0].textContent = ("0" + minute.toString()).slice(-2);
       }, 10);
+      control_container.addEventListener("click", (e) => {
+        console.info(e.target);
+        if (e.target != stop.firstChild && e.target != stop)
+          control_container.style.gap = "0em";
+        else control_container.style.gap = "4em";
+      });
     }
   });
   const stop = document.querySelector(".stop");
@@ -414,9 +420,5 @@ function stopwatch() {
         col2.textContent = g.join("");
       } else col2.textContent = col.textContent + "+";
     }
-  });
-  control_container.addEventListener("click", (e) => {
-    if (e.target != stop.firstChild) control_container.style.gap = "0em";
-    else control_container.style.gap = "4em";
   });
 }
